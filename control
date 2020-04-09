@@ -1,0 +1,15 @@
+#!/bin/bash
+if [ "$#" -ne 2 ]; then
+    echo "Illegal number of parameters. 2 expected"
+    exit
+fi
+action=$1
+service=$2
+
+if [ "$(find /etc/systemd/ -regextype sed -regex ".*ceph-.*@$service.*\.service" | wc -l)" -ne 1 ]; then
+    echo "service $service not found"
+    exit
+fi
+files=$(find /etc/systemd/ -regextype sed -regex ".*ceph-.*@$service.*\.service")
+
+systemctl $action $(basename "$files")

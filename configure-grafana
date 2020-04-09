@@ -1,0 +1,6 @@
+#!/bin/bash
+./cephadm shell ceph dashboard set-grafana-api-ssl-verify False
+cat grafana.ini > /var/lib/ceph/*/grafana.julia/etc/grafana/grafana.ini
+echo "updated grafana.ini"
+./control restart grafana
+echo "grafana restarted"
