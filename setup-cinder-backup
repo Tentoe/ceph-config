@@ -1,0 +1,8 @@
+#!/bin/bash
+
+./cephadm shell ceph osd pool create backups
+./cephadm shell rbd pool init backups
+
+mkdir -p /etc/kolla/config/cinder/cinder-backup/
+
+./cephadm shell ceph auth get-or-create client.cinder-backup mon 'profile rbd' osd 'profile rbd pool=backups' mgr 'profile rbd pool=backups' > /etc/kolla/config/cinder/cinder-backup/ceph.client.cinder-backup.keyring

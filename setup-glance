@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./cephadm shell ceph osd pool create images
+./cephadm shell rbd pool init images
+
+./cephadm shell ceph auth get-or-create client.glance mon 'profile rbd' osd 'profile rbd pool=images' mgr 'profile rbd pool=images' > ceph.client.glance.keyring

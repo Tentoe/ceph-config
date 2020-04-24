@@ -1,0 +1,8 @@
+#!/bin/bash
+
+./cephadm shell ceph osd pool create kubernetes
+./cephadm shell rbd pool init kubernetes
+
+./cephadm shell ceph auth get-or-create client.kubernetes \
+    mon 'profile rbd' osd 'profile rbd pool=kubernetes' mgr 'profile rbd pool=kubernetes' \
+    > ceph.client.kubernetes.keyring
